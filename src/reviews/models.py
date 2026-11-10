@@ -4,8 +4,10 @@ import numpy as np
 from sklearn.dummy import DummyClassifier
 from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
 from sklearn.linear_model import LogisticRegression
+from sklearn.naive_bayes import MultinomialNB
 from sklearn.pipeline import Pipeline, make_pipeline
 from sklearn.preprocessing import FunctionTransformer
+from sklearn.svm import LinearSVC
 
 SEED = 0
 # Shared by every bag-of-words variant so only the weighting differs between them. One-letter
@@ -34,9 +36,31 @@ def bag_of_words(binary: bool = False) -> Pipeline:
     return Pipeline([("vec", CountVectorizer(binary=binary, **VOCAB)), ("clf", _classifier())])
 
 
-def tfidf() -> Pipeline:
-    vec = TfidfVectorizer(sublinear_tf=True, **VOCAB)
+def tfidf(ngram_range: tuple[int, int] = (1, 1), min_df: int = 2) -> Pipeline:
+    vec = TfidfVectorizer(
+        sublinear_tf=True, **(VOCAB | {"min_df": min_df}), ngram_range=ngram_range
+    )
     return Pipeline([("vec", vec), ("clf", _classifier())])
+
+
+def naive_bayes(ngram_range: tuple[int, int] = (1, 1), min_df: int = 2) -> Pipeline:
+    """Multinomial NB on raw counts, the model it assumes."""
+    vec = CountVectorizer(**(VOCAB | {"min_df": min_df}), ngram_range=ngram_range)
+    return Pipeline([("vec", vec), ("clf", MultinomialNB())])
+
+
+def linear_svm(ngram_range: tuple[int, int] = (1, 1), min_df: int = 2) -> Pipeline:
+    vec = TfidfVectorizer(
+        sublinear_tf=True, **(VOCAB | {"min_df": min_df}), ngram_range=ngram_range
+    )
+    return Pipeline([("vec", vec), ("clf", LinearSVC(C=0.5, random_state=SEED))])
+
+
+def positive_score(model, texts) -> np.ndarray:
+    """Something to rank by for AUC: a probability where the model has one, else the SVM margin."""
+    if hasattr(model, "predict_proba"):
+        return model.predict_proba(texts)[:, 1]
+    return model.decision_function(texts)
 
 
 class Vader:
