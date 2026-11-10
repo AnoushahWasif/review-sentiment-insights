@@ -1,0 +1,123 @@
+{
+  "split": "validation",
+  "rows": {
+    "train": 200000,
+    "validation": 20000
+  },
+  "results": {
+    "majority": {
+      "accuracy": 0.5,
+      "f1_negative": 0.6666666666666666,
+      "auc": 0.5,
+      "accuracy_95": [
+        0.4932,
+        0.5069
+      ],
+      "f1_negative_95": [
+        0.6606,
+        0.6727
+      ],
+      "fit_seconds": 0.1
+    },
+    "length only": {
+      "accuracy": 0.5349,
+      "f1_negative": 0.5502804099787275,
+      "auc": 0.5475486950000001,
+      "accuracy_95": [
+        0.5282,
+        0.5415
+      ],
+      "f1_negative_95": [
+        0.5425,
+        0.5582
+      ],
+      "fit_seconds": 1.7
+    },
+    "bag of words (counts)": {
+      "accuracy": 0.8969,
+      "f1_negative": 0.8964547554484282,
+      "auc": 0.9558539700000002,
+      "accuracy_95": [
+        0.8926,
+        0.901
+      ],
+      "f1_negative_95": [
+        0.892,
+        0.9008
+      ],
+      "fit_seconds": 63.2,
+      "vocabulary": 75541
+    },
+    "bag of words (binary)": {
+      "accuracy": 0.8944,
+      "f1_negative": 0.8940716220282877,
+      "auc": 0.95626623,
+      "accuracy_95": [
+        0.8902,
+        0.8989
+      ],
+      "f1_negative_95": [
+        0.8896,
+        0.8986
+      ],
+      "fit_seconds": 26.1,
+      "vocabulary": 75541
+    },
+    "tf-idf": {
+      "accuracy": 0.9042,
+      "f1_negative": 0.9041232986389112,
+      "auc": 0.96573417,
+      "accuracy_95": [
+        0.9,
+        0.9084
+      ],
+      "f1_negative_95": [
+        0.8998,
+        0.9083
+      ],
+      "fit_seconds": 29.8,
+      "vocabulary": 75541
+    },
+    "VADER (no training)": {
+      "accuracy": 0.721,
+      "f1_negative": 0.6477717459916678,
+      "auc": 0.84200344,
+      "accuracy_95": [
+        0.715,
+        0.7274
+      ],
+      "f1_negative_95": [
+        0.6389,
+        0.6564
+      ],
+      "score_seconds": 12.1
+    }
+  },
+  "paired_accuracy_difference_95": {
+    "tf-idf minus counts": [
+      0.0042,
+      0.0103
+    ],
+    "tf-idf minus binary": [
+      0.0066,
+      0.0128
+    ],
+    "binary minus counts": [
+      -0.0056,
+      0.0006
+    ],
+    "counts minus VADER": [
+      0.169,
+      0.1826
+    ]
+  },
+  "run": {
+    "git_commit": "14c4f7f41dffe3938d29eac2436a77cdda432fbd",
+    "data_revision": "9d9c45c18f8c3cf1b23a3c27917b60cbf28f3289",
+    "splits_sha256": {
+      "train": "22b0fd8b9a7232d7efaa0370c54a5bf27e065c149d6a566e59588fc733f54c50",
+      "validation": "0e9e35a74562ca9c61aa419f56d9a001fac34c23c733025d18938128bb847274",
+      "test": "026fea5637c6ed296f3e7ff30aa5f9501706ffae4d5bc886132412de12bed238"
+    }
+  }
+}
