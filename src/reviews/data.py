@@ -10,6 +10,7 @@ import os
 import re
 import unicodedata
 import urllib.request
+from concurrent.futures import ThreadPoolExecutor
 from dataclasses import dataclass
 from pathlib import Path
 
@@ -71,7 +72,7 @@ def sha256_of(path: Path) -> str:
     return digest.hexdigest()
 
 
-def fetch(remote: RemoteFile, folder: Path, opener=urllib.request.urlopen) -> Path:
+def fetch(remote: RemoteFile, folder: Path, opener=None) -> Path:
     """Download once, refusing anything bigger than the pinned size, then check the hash.
     A file that fails the check is deleted so the next run downloads it again."""
     folder.mkdir(parents=True, exist_ok=True)
@@ -80,7 +81,8 @@ def fetch(remote: RemoteFile, folder: Path, opener=urllib.request.urlopen) -> Pa
         url = f"https://huggingface.co/datasets/{REPO}/resolve/{REVISION}/{remote.path}"
         tmp = path.with_suffix(".part")
         written = 0
-        with opener(url) as response, tmp.open("wb") as out:
+        open_url = opener or (lambda u: urllib.request.urlopen(u, timeout=60))
+        with open_url(url) as response, tmp.open("wb") as out:
             for chunk in iter(lambda: response.read(1 << 20), b""):
                 written += len(chunk)
                 if written > remote.size:
@@ -157,8 +159,11 @@ def split_and_dedupe(pool: pd.DataFrame, test: pd.DataFrame, validation_size: in
 def build(dest: Path | None = None) -> dict:
     root = dest or data_dir()
     raw, processed = root / "raw", root / "processed"
-    test = add_keys(read(fetch(TEST, raw)))
-    shards = [read(fetch(remote, raw)) for remote in TRAIN]
+    # Hugging Face serves each connection at a capped speed, so the five files download together.
+    with ThreadPoolExecutor(max_workers=5) as pool:
+        paths = list(pool.map(lambda remote: fetch(remote, raw), (TEST, *TRAIN)))
+    test = add_keys(read(paths[0]))
+    shards = [read(path) for path in paths[1:]]
     # Oversample so the train set is still full size after duplicates are dropped.
     pool = add_keys(stratified_sample(shards, int((TRAIN_SIZE + VALIDATION_SIZE) * 1.02), SEED))
     del shards
