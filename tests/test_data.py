@@ -129,3 +129,10 @@ def test_stratified_sample_never_repeats_a_row():
     )
     sample = data.stratified_sample([shard], n=100, seed=1)
     assert sample["content"].is_unique
+
+
+def test_validation_has_the_same_class_share_as_the_pool():
+    labels = [1] * 700 + [0] * 300
+    pool = frame([str(i) for i in range(1000)], labels)
+    train, validation, _ = data.split_and_dedupe(pool, frame(["t"], [0]), 100, seed=0)
+    assert validation["label"].mean() == 0.7 and train["label"].mean() == 0.7

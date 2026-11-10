@@ -17,6 +17,7 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 import pyarrow.parquet as pq
+from sklearn.model_selection import train_test_split
 
 REPO = "fancyzhx/amazon_polarity"
 REVISION = "9d9c45c18f8c3cf1b23a3c27917b60cbf28f3289"
@@ -149,8 +150,9 @@ def split_and_dedupe(pool: pd.DataFrame, test: pd.DataFrame, validation_size: in
     pool = pool[~in_test]
     report["pool_repeats"] = int(pool["key"].duplicated().sum())
     pool = pool.drop_duplicates("key")
-    validation = pool.iloc[:validation_size]
-    train = pool.iloc[validation_size:]
+    train, validation = train_test_split(
+        pool, test_size=validation_size, stratify=pool["label"], random_state=seed
+    )
     report["conflicting_labels_in_test"] = int(test.groupby("key")["label"].nunique().gt(1).sum())
     report["test_repeats"] = int(test["key"].duplicated().sum())
     return train.reset_index(drop=True), validation.reset_index(drop=True), report
