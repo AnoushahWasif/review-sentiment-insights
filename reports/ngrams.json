@@ -1,0 +1,164 @@
+{
+  "split": "validation",
+  "results": {
+    "naive bayes 1-1": {
+      "accuracy": 0.84825,
+      "f1_negative": 0.8507352579550485,
+      "auc": 0.915346905,
+      "alpha": 1.0,
+      "fit_seconds": 29.6,
+      "accuracy_95": [
+        0.8434,
+        0.8533
+      ],
+      "f1_negative_95": [
+        0.8451,
+        0.8561
+      ],
+      "features": 75541
+    },
+    "linear svm 1-1": {
+      "accuracy": 0.9064,
+      "f1_negative": 0.9063906390639064,
+      "auc": 0.96638629,
+      "C": 0.25,
+      "fit_seconds": 30.1,
+      "accuracy_95": [
+        0.9022,
+        0.9106
+      ],
+      "f1_negative_95": [
+        0.9023,
+        0.9108
+      ],
+      "features": 75541
+    },
+    "logistic regression 1-1": {
+      "accuracy": 0.90545,
+      "f1_negative": 0.9053885025266423,
+      "auc": 0.9664465,
+      "C": 2.0,
+      "fit_seconds": 27.5,
+      "accuracy_95": [
+        0.9013,
+        0.9096
+      ],
+      "f1_negative_95": [
+        0.9012,
+        0.9098
+      ],
+      "features": 75541
+    },
+    "naive bayes 1-2": {
+      "accuracy": 0.88775,
+      "f1_negative": 0.8888448779521712,
+      "auc": 0.94624757,
+      "alpha": 0.5,
+      "fit_seconds": 67.1,
+      "accuracy_95": [
+        0.8835,
+        0.892
+      ],
+      "f1_negative_95": [
+        0.8841,
+        0.8935
+      ],
+      "features": 858120
+    },
+    "linear svm 1-2": {
+      "accuracy": 0.93135,
+      "f1_negative": 0.9314288568146631,
+      "auc": 0.97960365,
+      "C": 1.0,
+      "fit_seconds": 72.4,
+      "accuracy_95": [
+        0.928,
+        0.9348
+      ],
+      "f1_negative_95": [
+        0.9278,
+        0.935
+      ],
+      "features": 858120
+    },
+    "logistic regression 1-2": {
+      "accuracy": 0.9307,
+      "f1_negative": 0.9308107028753994,
+      "auc": 0.9797856,
+      "C": 8.0,
+      "fit_seconds": 69.3,
+      "accuracy_95": [
+        0.9271,
+        0.9344
+      ],
+      "f1_negative_95": [
+        0.9271,
+        0.9345
+      ],
+      "features": 858120
+    },
+    "logistic regression 1-3": {
+      "accuracy": 0.9348,
+      "f1_negative": 0.9349431251247255,
+      "auc": 0.9812723600000001,
+      "C": 8.0,
+      "fit_seconds": 123.8,
+      "accuracy_95": [
+        0.9312,
+        0.9383
+      ],
+      "f1_negative_95": [
+        0.9313,
+        0.9384
+      ],
+      "features": 1183429
+    }
+  },
+  "winner": "logistic regression 1-3",
+  "paired_accuracy_difference_95": {
+    "naive bayes 1-1 minus logistic regression 1-1": [
+      -0.0618,
+      -0.0527
+    ],
+    "linear svm 1-1 minus logistic regression 1-1": [
+      -0.0005,
+      0.0024
+    ],
+    "naive bayes 1-2 minus logistic regression 1-1": [
+      -0.022,
+      -0.013
+    ],
+    "linear svm 1-2 minus logistic regression 1-1": [
+      0.0226,
+      0.0291
+    ],
+    "logistic regression 1-2 minus logistic regression 1-1": [
+      0.0221,
+      0.0286
+    ],
+    "logistic regression 1-3 minus logistic regression 1-1": [
+      0.0261,
+      0.0328
+    ]
+  },
+  "negation": {
+    "reviews_with_negated_sentiment_word": 2305,
+    "accuracy_on_them": {
+      "logistic regression 1-1": 0.8885,
+      "logistic regression 1-3": 0.9388
+    },
+    "accuracy_on_the_rest": {
+      "logistic regression 1-1": 0.9077,
+      "logistic regression 1-3": 0.9343
+    }
+  },
+  "run": {
+    "git_commit": "75a68c4f9917fd362b5fe3bea4a02e768a65c1a4",
+    "data_revision": "9d9c45c18f8c3cf1b23a3c27917b60cbf28f3289",
+    "splits_sha256": {
+      "train": "22b0fd8b9a7232d7efaa0370c54a5bf27e065c149d6a566e59588fc733f54c50",
+      "validation": "0e9e35a74562ca9c61aa419f56d9a001fac34c23c733025d18938128bb847274",
+      "test": "026fea5637c6ed296f3e7ff30aa5f9501706ffae4d5bc886132412de12bed238"
+    }
+  }
+}
