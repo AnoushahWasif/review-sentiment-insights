@@ -102,11 +102,11 @@ def main(out: Path = Path("reports/ngrams.json"), model_dir: Path = Path("models
         "negation": negation,
         "run": run_metadata(data_dir() / "processed" / "report.json"),
     }
-    out.parent.mkdir(parents=True, exist_ok=True)
-    out.write_text(json.dumps(report, indent=2, default=float))
     report["winner_sha256"] = save_model(
         fitted[winner], model_dir, {"name": winner, "validation": results[winner]}
     )
+    out.parent.mkdir(parents=True, exist_ok=True)
+    out.write_text(json.dumps(report, indent=2, default=float))
     return report
 
 

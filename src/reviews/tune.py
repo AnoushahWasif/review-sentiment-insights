@@ -71,13 +71,13 @@ def main(out: Path = Path("reports/tfidf_lr.json"), model_dir: Path = Path("mode
         "calibration": calibration(val_y, prob),
         "run": run_metadata(data_dir() / "processed" / "report.json"),
     }
-    out.parent.mkdir(parents=True, exist_ok=True)
-    out.write_text(json.dumps(report, indent=2, default=float))
     report["model_sha256"] = save_model(
         model,
         model_dir,
         {"name": "tf-idf + logistic regression", "C": best_c, "validation": report["best"]},
     )
+    out.parent.mkdir(parents=True, exist_ok=True)
+    out.write_text(json.dumps(report, indent=2, default=float))
     return report
 
 
