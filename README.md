@@ -4,7 +4,7 @@ Telling positive from negative Amazon product reviews, and finding what unhappy 
 
 The point is to do the classic text-classification project carefully: check for duplicate reviews leaking between train and test, beat a word-list baseline before claiming anything, read the model's real mistakes, and only report complaint topics a person can actually name.
 
-**Status:** in progress (day 1 of 10). Results will go here once there are any.
+**Status:** in progress (day 2 of 10). Results will go here once there are any.
 
 ## Planned approach
 
@@ -28,6 +28,7 @@ Python 3.12, uv, pandas, scikit-learn, matplotlib, pytest, ruff. CI: GitHub Acti
 
 ```bash
 uv sync
+make data        # downloads 1.15 GB once, checks hashes, writes data/processed
 make lint test
 ```
 
