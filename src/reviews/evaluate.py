@@ -51,6 +51,35 @@ def paired_difference(y_true, pred_a, pred_b, n: int = N_BOOT, seed: int = 0) ->
     return np.percentile(means, [2.5, 97.5]).round(4).tolist()
 
 
+def calibration(y_true, prob, bins: int = 10) -> dict:
+    """Reliability table (mean predicted vs observed positive share per probability bin), Brier
+    score and expected calibration error (bin gaps weighted by bin size)."""
+    y_true, prob = np.asarray(y_true, dtype=float), np.asarray(prob, dtype=float)
+    if len(y_true) == 0 or ((prob < 0) | (prob > 1)).any():
+        raise ValueError("need probabilities in [0, 1] for at least one row")
+    which = np.minimum((prob * bins).astype(int), bins - 1)
+    table, ece = [], 0.0
+    for b in range(bins):
+        mask = which == b
+        if not mask.any():
+            continue
+        predicted, observed = prob[mask].mean(), y_true[mask].mean()
+        ece += mask.mean() * abs(predicted - observed)
+        table.append(
+            {
+                "bin": f"{b / bins:.1f}-{(b + 1) / bins:.1f}",
+                "rows": int(mask.sum()),
+                "mean_predicted": round(float(predicted), 4),
+                "observed_positive": round(float(observed), 4),
+            }
+        )
+    return {
+        "brier": round(float(np.mean((prob - y_true) ** 2)), 4),
+        "ece": round(float(ece), 4),
+        "bins": table,
+    }
+
+
 def run_metadata(data_report: Path) -> dict:
     try:
         commit = subprocess.run(
