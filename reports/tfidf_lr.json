@@ -1,0 +1,115 @@
+{
+  "split": "validation",
+  "accuracy_by_C": {
+    "0.25": 0.8981,
+    "0.5": 0.9019,
+    "1.0": 0.9042,
+    "2.0": 0.9054,
+    "4.0": 0.9047,
+    "8.0": 0.9032
+  },
+  "best_C": 2.0,
+  "best": {
+    "accuracy": 0.90545,
+    "f1_negative": 0.9053885025266423,
+    "auc": 0.9664465,
+    "accuracy_95": [
+      0.9013,
+      0.9096
+    ],
+    "f1_negative_95": [
+      0.9012,
+      0.9098
+    ]
+  },
+  "learning_curve_accuracy": {
+    "10000": 0.8748,
+    "25000": 0.8893,
+    "50000": 0.8967,
+    "100000": 0.9012,
+    "200000": 0.9054
+  },
+  "title_ablation": {
+    "title + body": 0.9054,
+    "body only": 0.88,
+    "with title minus body only, 95%": [
+      0.0222,
+      0.0283
+    ]
+  },
+  "calibration": {
+    "brier": 0.0703,
+    "ece": 0.0205,
+    "bins": [
+      {
+        "bin": "0.0-0.1",
+        "rows": 6289,
+        "mean_predicted": 0.0271,
+        "observed_positive": 0.0213
+      },
+      {
+        "bin": "0.1-0.2",
+        "rows": 1423,
+        "mean_predicted": 0.1443,
+        "observed_positive": 0.0991
+      },
+      {
+        "bin": "0.2-0.3",
+        "rows": 915,
+        "mean_predicted": 0.2464,
+        "observed_positive": 0.2087
+      },
+      {
+        "bin": "0.3-0.4",
+        "rows": 712,
+        "mean_predicted": 0.3484,
+        "observed_positive": 0.2921
+      },
+      {
+        "bin": "0.4-0.5",
+        "rows": 648,
+        "mean_predicted": 0.4518,
+        "observed_positive": 0.409
+      },
+      {
+        "bin": "0.5-0.6",
+        "rows": 647,
+        "mean_predicted": 0.5514,
+        "observed_positive": 0.5425
+      },
+      {
+        "bin": "0.6-0.7",
+        "rows": 685,
+        "mean_predicted": 0.6522,
+        "observed_positive": 0.673
+      },
+      {
+        "bin": "0.7-0.8",
+        "rows": 921,
+        "mean_predicted": 0.7536,
+        "observed_positive": 0.7948
+      },
+      {
+        "bin": "0.8-0.9",
+        "rows": 1460,
+        "mean_predicted": 0.8547,
+        "observed_positive": 0.9123
+      },
+      {
+        "bin": "0.9-1.0",
+        "rows": 6300,
+        "mean_predicted": 0.9714,
+        "observed_positive": 0.9817
+      }
+    ]
+  },
+  "run": {
+    "git_commit": "62af373558ec2a1d5a24449735a4163f36204757",
+    "data_revision": "9d9c45c18f8c3cf1b23a3c27917b60cbf28f3289",
+    "splits_sha256": {
+      "train": "22b0fd8b9a7232d7efaa0370c54a5bf27e065c149d6a566e59588fc733f54c50",
+      "validation": "0e9e35a74562ca9c61aa419f56d9a001fac34c23c733025d18938128bb847274",
+      "test": "026fea5637c6ed296f3e7ff30aa5f9501706ffae4d5bc886132412de12bed238"
+    }
+  }
+}

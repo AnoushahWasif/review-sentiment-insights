@@ -63,7 +63,7 @@ flowchart LR
 | # | Decision | Why |
 |---|----------|-----|
 | 1 | amazon_polarity, not Yelp or Amazon Reviews 2023 | Apache-2.0, so results and models can be published. Yelp's terms are non-commercial and restrict redistribution. Amazon Reviews 2023 is richer (stars, categories, dates), but no licence is stated |
-| 2 | 200k train / 20k validation, full 400k test | Enough for the linear models to level off while staying fast on a laptop. Learning curves on day 4 check that claim. The sample seed and sizes go in every report |
+| 2 | 200k train / 20k validation, full 400k test | Fast on a laptop (a TF-IDF fit takes about 30 s). The day 4 learning curve showed the model hasn't fully levelled off: 100k to 200k still adds 0.4 points (90.1% to 90.5%), against 1.4 points from 10k to 25k. More data would help a little; it's a trade kept for speed. The sample seed and sizes go in every report |
 | 3 | VADER as the lexicon baseline | MIT licence, small, no training. It's the "word list" any model must beat |
 | 4 | Topics only on negative reviews, NMF over LDA | The question is what people complain about. NMF on TF-IDF usually gives easier-to-read topics than LDA on short text, and runs in seconds. If its topics can't be named, LDA gets tried |
 | 5 | The test set is scored once, by a separate command that refuses to run twice | Every choice before then is made on validation, as in demand-forecasting |
@@ -73,6 +73,7 @@ flowchart LR
 | 9 | The CLI caps input at 50 MB and 200k rows, requires a `text` column, and rejects anything else instead of guessing | A huge or malformed file should fail fast with a clear message |
 | 10 | Sentence embeddings use `all-MiniLM-L6-v2` (Apache-2.0) on CPU, on a 50k subsample if the full 200k is too slow | It's small enough for a laptop, and the comparison is about whether embeddings beat TF-IDF here, not about the best possible model |
 | 11 | Every run writes the data hashes, parameters and git commit next to its results | A number in the README can be traced to the exact run that produced it |
+| 12 | TF-IDF + logistic regression uses C=2, the 0.5 threshold, and title + body | C from 0.5 to 8 is within 0.4 points, so the choice barely matters. The classes are balanced and the probabilities are well calibrated (ECE 0.02), so 0.5 needs no tuning. The title adds 2.2 to 2.8 points |
 
 ## Limitations (known before starting)
 
