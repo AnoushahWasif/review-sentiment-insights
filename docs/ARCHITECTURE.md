@@ -75,6 +75,7 @@ flowchart LR
 | 11 | Every run writes the data hashes, parameters and git commit next to its results | A number in the README can be traced to the exact run that produced it |
 | 12 | TF-IDF + logistic regression uses C=2, the 0.5 threshold, and title + body | C from 0.5 to 8 is within 0.4 points, so the choice barely matters. The classes are balanced and the probabilities are well calibrated (ECE 0.02), so 0.5 needs no tuning. The title adds 2.2 to 2.8 points |
 | 13 | The model for the rest of the project is TF-IDF on 1-3 word n-grams + logistic regression (C=8, min_df 3) | 93.5% on validation against 90.5% for single words. Word pairs fix most of the negation mistakes. A linear SVM is as accurate, but logistic regression gives calibrated probabilities. The cost is 1.2M features and a 2.5-minute fit |
+| 14 | Complaint topics run in two stages: 8 NMF topics on all negative reviews set aside books, films, music and games; 15 topics on the rest give the complaints | On all negative reviews, NMF's topics were product types, not complaints. 15 has the highest coherence (NPMI 0.20) and, read by hand, keeps battery, customer service and children's products apart. Topic names live in `reports/topic_labels.csv` with each topic's top words as a check |
 
 ## Limitations (known before starting)
 

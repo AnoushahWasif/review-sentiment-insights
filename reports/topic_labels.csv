@@ -1,0 +1,16 @@
+topic,label,kind,check_words
+0,"Too small, flimsy, not what was expected",complaint,like|just|good
+1,"""Don't waste your money""",verdict,waste money|waste|money
+2,DVDs that won't play (region codes; players),complaint,dvd|player|movie
+3,Order never arrived or wrong item sent,complaint,item|amazon|received
+4,Doesn't work at all,complaint,work|does|did
+5,Stopped working after a few months,complaint,months|working|stopped
+6,Poor picture or sound quality,complaint,quality|poor|poor quality
+7,"""Don't buy""",verdict,buy|don|don buy
+8,"""Waste of time"" (books and films that got past stage 1)",leftover media,time|waste time|book
+9,"Poorly made, wouldn't recommend",verdict,product|recommend|buy product
+10,Battery and charging,complaint,battery|phone|batteries
+11,"Cheap, broke quickly: ""piece of junk""",complaint,junk|piece|piece junk
+12,Children's products and toys: size and age fit,complaint,old|year|year old
+13,Not worth the price,complaint,money|save|save money
+14,Customer service and support,complaint,service|customer|customer service
