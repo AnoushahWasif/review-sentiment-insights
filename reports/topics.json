@@ -1,0 +1,343 @@
+{
+  "stage1": {
+    "k": 8,
+    "top_words": [
+      [
+        "work",
+        "use",
+        "bought",
+        "just",
+        "months",
+        "doesn"
+      ],
+      [
+        "book",
+        "read",
+        "books",
+        "author",
+        "reading",
+        "story"
+      ],
+      [
+        "movie",
+        "film",
+        "bad",
+        "watch",
+        "movies",
+        "acting"
+      ],
+      [
+        "waste",
+        "money",
+        "waste money",
+        "don waste",
+        "don",
+        "waste time"
+      ],
+      [
+        "cd",
+        "album",
+        "songs",
+        "music",
+        "like",
+        "song"
+      ],
+      [
+        "product",
+        "amazon",
+        "item",
+        "received",
+        "ordered",
+        "order"
+      ],
+      [
+        "game",
+        "play",
+        "games",
+        "graphics",
+        "fun",
+        "played"
+      ],
+      [
+        "quality",
+        "dvd",
+        "poor",
+        "poor quality",
+        "sound",
+        "video"
+      ]
+    ],
+    "media_topics": [
+      1,
+      2,
+      4,
+      6
+    ],
+    "goods_share_train": 0.499,
+    "goods_share_validation": 0.496
+  },
+  "stage2": {
+    "k": 15,
+    "choose_k": [
+      {
+        "k": 6,
+        "coherence": 0.1775,
+        "diversity": 0.983
+      },
+      {
+        "k": 8,
+        "coherence": 0.1864,
+        "diversity": 0.925
+      },
+      {
+        "k": 10,
+        "coherence": 0.1844,
+        "diversity": 0.91
+      },
+      {
+        "k": 12,
+        "coherence": 0.1898,
+        "diversity": 0.917
+      },
+      {
+        "k": 15,
+        "coherence": 0.2033,
+        "diversity": 0.9
+      },
+      {
+        "k": 20,
+        "coherence": 0.1929,
+        "diversity": 0.88
+      }
+    ],
+    "top_words": [
+      [
+        "like",
+        "just",
+        "good",
+        "use",
+        "really",
+        "small",
+        "way",
+        "great",
+        "little",
+        "used"
+      ],
+      [
+        "waste money",
+        "waste",
+        "money",
+        "don waste",
+        "don",
+        "book",
+        "total",
+        "total waste",
+        "money bought",
+        "dont waste"
+      ],
+      [
+        "dvd",
+        "player",
+        "movie",
+        "play",
+        "dvd player",
+        "version",
+        "video",
+        "ray",
+        "disc",
+        "blu"
+      ],
+      [
+        "item",
+        "amazon",
+        "received",
+        "ordered",
+        "order",
+        "return",
+        "sent",
+        "seller",
+        "shipping",
+        "refund"
+      ],
+      [
+        "work",
+        "does",
+        "did",
+        "does work",
+        "doesn",
+        "did work",
+        "doesn work",
+        "didn",
+        "didn work",
+        "tried"
+      ],
+      [
+        "months",
+        "working",
+        "stopped",
+        "worked",
+        "stopped working",
+        "great",
+        "broke",
+        "lasted",
+        "years",
+        "warranty"
+      ],
+      [
+        "quality",
+        "poor",
+        "poor quality",
+        "sound",
+        "sound quality",
+        "good",
+        "video",
+        "better",
+        "quality poor",
+        "picture"
+      ],
+      [
+        "buy",
+        "don",
+        "don buy",
+        "know",
+        "don know",
+        "buy product",
+        "want",
+        "bought",
+        "bother",
+        "don bother"
+      ],
+      [
+        "time",
+        "waste time",
+        "book",
+        "waste",
+        "time money",
+        "don waste",
+        "read",
+        "don",
+        "books",
+        "story"
+      ],
+      [
+        "product",
+        "recommend",
+        "buy product",
+        "recommend product",
+        "disappointed",
+        "used",
+        "description",
+        "bought product",
+        "products",
+        "disappointed product"
+      ],
+      [
+        "battery",
+        "phone",
+        "batteries",
+        "charge",
+        "camera",
+        "charger",
+        "life",
+        "battery life",
+        "new",
+        "dead"
+      ],
+      [
+        "junk",
+        "piece",
+        "piece junk",
+        "broke",
+        "cheap",
+        "plastic",
+        "crap",
+        "piece crap",
+        "garbage",
+        "thing"
+      ],
+      [
+        "old",
+        "year",
+        "year old",
+        "toy",
+        "son",
+        "daughter",
+        "bought",
+        "disappointed",
+        "christmas",
+        "child"
+      ],
+      [
+        "money",
+        "save",
+        "save money",
+        "worth",
+        "worth money",
+        "better",
+        "price",
+        "money buy",
+        "spend",
+        "worth price"
+      ],
+      [
+        "service",
+        "customer",
+        "customer service",
+        "support",
+        "called",
+        "company",
+        "software",
+        "problem",
+        "told",
+        "tech"
+      ]
+    ],
+    "share_train": [
+      0.107,
+      0.061,
+      0.069,
+      0.107,
+      0.076,
+      0.076,
+      0.066,
+      0.064,
+      0.045,
+      0.093,
+      0.044,
+      0.044,
+      0.056,
+      0.041,
+      0.05
+    ],
+    "share_validation": [
+      0.106,
+      0.059,
+      0.067,
+      0.11,
+      0.078,
+      0.073,
+      0.065,
+      0.058,
+      0.05,
+      0.093,
+      0.044,
+      0.042,
+      0.055,
+      0.044,
+      0.056
+    ],
+    "reviews": {
+      "train": 49886,
+      "validation": 4965
+    }
+  },
+  "run": {
+    "git_commit": "0a14498ed88cb673c753f282112368b385c8c701",
+    "data_revision": "9d9c45c18f8c3cf1b23a3c27917b60cbf28f3289",
+    "splits_sha256": {
+      "train": "22b0fd8b9a7232d7efaa0370c54a5bf27e065c149d6a566e59588fc733f54c50",
+      "validation": "0e9e35a74562ca9c61aa419f56d9a001fac34c23c733025d18938128bb847274",
+      "test": "026fea5637c6ed296f3e7ff30aa5f9501706ffae4d5bc886132412de12bed238"
+    }
+  }
+}
