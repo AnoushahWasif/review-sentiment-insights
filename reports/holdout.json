@@ -1,0 +1,34 @@
+{
+  "split": "test",
+  "reviews": 400000,
+  "model": "logistic regression 1-3",
+  "model_sha256": "87da52dac1efa645cc359330f831e63e008348edeb88bb7cbafd7cd1abd1dc5d",
+  "test": {
+    "accuracy": 0.931945,
+    "f1_negative": 0.9319467013324667,
+    "auc": 0.9801886852250001,
+    "accuracy_95": [
+      0.9311,
+      0.9327
+    ],
+    "f1_negative_95": [
+      0.9311,
+      0.9327
+    ]
+  },
+  "validation_accuracy": 0.9348,
+  "majority_accuracy": 0.5,
+  "calibration": {
+    "brier": 0.0515,
+    "ece": 0.0131
+  },
+  "run": {
+    "git_commit": "5d9028dee9ed023c3142c1b10b539a303e0c2dce",
+    "data_revision": "9d9c45c18f8c3cf1b23a3c27917b60cbf28f3289",
+    "splits_sha256": {
+      "train": "22b0fd8b9a7232d7efaa0370c54a5bf27e065c149d6a566e59588fc733f54c50",
+      "validation": "0e9e35a74562ca9c61aa419f56d9a001fac34c23c733025d18938128bb847274",
+      "test": "026fea5637c6ed296f3e7ff30aa5f9501706ffae4d5bc886132412de12bed238"
+    }
+  }
+}
