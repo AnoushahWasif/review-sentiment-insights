@@ -128,6 +128,7 @@ docs/          ARCHITECTURE.md
 - **Topics are one per review**, and the data has no product category or date, so complaints can't be split by department or tracked over time.
 - **The model file is a pickle.** It's hash-checked before loading and tied to the exact scikit-learn version, which means retraining after an upgrade.
 - **The scrubber over-masks.** It hides any run of 7 or more digits, so some product codes are blanked in report excerpts.
+- **Formula escaping changes some values.** Any text cell starting with `=`, `+`, `-` or `@` gets a leading `'` in the scored CSV, so an id like `-3` comes back as `'-3`.
 - **It's an analysis tool,** not a moderator. Around 7% of reviews are misclassified, so it shouldn't remove reviews or reply to customers by itself.
 
 ## License
