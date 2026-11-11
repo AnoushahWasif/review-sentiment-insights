@@ -1,4 +1,4 @@
-.PHONY: install lint format test data compare tune ngrams topics
+.PHONY: install lint format test data compare tune ngrams topics embeddings
 
 install:
 	uv sync
@@ -28,3 +28,6 @@ ngrams:
 
 topics:
 	uv run python -m reviews.topics
+
+embeddings:
+	uv run python -m reviews.embeddings

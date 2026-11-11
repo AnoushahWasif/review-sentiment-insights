@@ -1,0 +1,48 @@
+{
+  "split": "validation",
+  "model": {
+    "name": "sentence-transformers/all-MiniLM-L6-v2",
+    "revision": "1110a243fdf4706b3f48f1d95db1a4f5529b4d41",
+    "max_tokens": 256
+  },
+  "encode_seconds": {
+    "validation": 615.3,
+    "train": 7598.5
+  },
+  "accuracy_by_C": {
+    "0.1": 0.866,
+    "1.0": 0.8684,
+    "10.0": 0.8696
+  },
+  "best_C": 10.0,
+  "embeddings": {
+    "accuracy": 0.8696,
+    "f1_negative": 0.8699511319437518,
+    "accuracy_95": [
+      0.865,
+      0.8741
+    ],
+    "f1_negative_95": [
+      0.865,
+      0.8747
+    ],
+    "auc": 0.9403120150000002
+  },
+  "tfidf_ngrams_accuracy": 0.9348,
+  "embeddings_minus_tfidf_95": [
+    -0.0702,
+    -0.0605
+  ],
+  "both_wrong": 686,
+  "only_embeddings_wrong": 1922,
+  "only_tfidf_wrong": 618,
+  "run": {
+    "git_commit": "c54c14dffe61204ad9e38413e3a98ff342d36e6c",
+    "data_revision": "9d9c45c18f8c3cf1b23a3c27917b60cbf28f3289",
+    "splits_sha256": {
+      "train": "22b0fd8b9a7232d7efaa0370c54a5bf27e065c149d6a566e59588fc733f54c50",
+      "validation": "0e9e35a74562ca9c61aa419f56d9a001fac34c23c733025d18938128bb847274",
+      "test": "026fea5637c6ed296f3e7ff30aa5f9501706ffae4d5bc886132412de12bed238"
+    }
+  }
+}
