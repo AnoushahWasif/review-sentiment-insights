@@ -65,4 +65,12 @@ def load_model(model_dir: Path, expected_sha256: str | None = None) -> LoadedMod
             f"model saved with scikit-learn {manifest.get('sklearn_version')}, "
             f"running {sklearn.__version__}; retrain instead of loading it"
         )
-    return LoadedModel(joblib.load(io.BytesIO(data)), manifest)
+    try:
+        model = joblib.load(io.BytesIO(data))
+    except Exception as exc:
+        # The bytes are the ones that were saved, so this is a code change (a class that moved or
+        # was renamed), not tampering. Unpickling can raise almost anything, hence the broad catch.
+        raise ModelIntegrityError(
+            f"model passed the hash check but can't be loaded: {exc}"
+        ) from exc
+    return LoadedModel(model, manifest)

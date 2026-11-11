@@ -70,6 +70,9 @@ def read_input(path: Path) -> pd.DataFrame:
     except UnicodeDecodeError as exc:
         raise InputError("input isn't UTF-8") from exc
     except csv.Error as exc:
+        if "field limit" in str(exc):
+            limit = csv.field_size_limit()
+            raise InputError(f"a cell is longer than {limit:,} characters") from exc
         raise InputError(f"not a readable CSV: {exc}") from exc
     if len(set(header)) != len(header):
         raise InputError("duplicate column names")
