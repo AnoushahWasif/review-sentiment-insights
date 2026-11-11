@@ -15,6 +15,9 @@ dependencies = [
     "transformers>=5.22.1",
 ]
 
+[project.scripts]
+reviews = "reviews.cli:main"
+
 [dependency-groups]
 dev = [
     "pytest>=8.3",

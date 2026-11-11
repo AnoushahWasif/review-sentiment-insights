@@ -1,8 +1,12 @@
+import dataclasses
+
 import numpy as np
+import pandas as pd
 import pytest
 from scipy import sparse
 
 from reviews import topics
+from reviews.model_store import load_model, save_model
 
 BATTERY = ["battery died after two months, stopped working", "stopped working, battery dead"]
 SHIPPING = ["wrong item shipped, seller refund slow", "seller shipped wrong item, no refund"]
@@ -87,3 +91,60 @@ def test_committed_topic_labels_cover_every_topic():
     assert labels["topic"].tolist() == list(range(topics.STAGE2_K))
     assert set(labels["kind"]) <= {"complaint", "verdict", "leftover media"}
     assert labels["check_words"].str.count(r"\|").eq(2).all()
+
+
+def toy_model(media=()):
+    vec, matrix = topics.vectorise(DOCS, min_df=1, max_df=1.0)
+    nmf, _ = topics.fit(matrix, 2)
+    battery = int(topics.dominant(nmf.transform(vec.transform(BATTERY[:1])))[0])
+    labels = ["shipping", "shipping"]
+    labels[battery] = "battery"
+    model = topics.TopicModel(vec, nmf, tuple(media), vec, nmf, tuple(labels))
+    return model, battery
+
+
+def test_assign_names_each_review():
+    model, _ = toy_model()
+    texts = ["battery dead, stopped working", "seller shipped the wrong item", "zzz qqq"]
+    assert topics.assign(model, texts) == ["battery", "shipping", topics.NO_TOPIC]
+    assert topics.assign(model, []) == []
+
+
+def test_assign_marks_media_reviews():
+    model, battery = toy_model()
+    model = dataclasses.replace(model, media=(battery,))
+    assert topics.assign(model, ["battery stopped working"]) == [topics.MEDIA_LABEL]
+
+
+def labels_for(model, n=None):
+    words = topics.top_words(model.nmf2, model.vec2.get_feature_names_out(), 3)
+    return pd.DataFrame(
+        {
+            "topic": range(len(words))[:n],
+            "label": [f"name {i}" for i in range(len(words))][:n],
+            "check_words": ["|".join(w) for w in words][:n],
+        }
+    )
+
+
+def test_named_attaches_labels_in_topic_order():
+    model, _ = toy_model()
+    labels = labels_for(model).iloc[::-1]
+    assert topics.named(model, labels).labels == ("name 0", "name 1")
+
+
+def test_named_refuses_stale_or_missing_labels():
+    model, _ = toy_model()
+    stale = labels_for(model)
+    stale.loc[0, "check_words"] = "dvd|player|movie"
+    with pytest.raises(ValueError, match="relabel"):
+        topics.named(model, stale)
+    with pytest.raises(ValueError, match="one label"):
+        topics.named(model, labels_for(model, n=1))
+
+
+def test_topic_model_survives_the_model_store(tmp_path):
+    model, _ = toy_model()
+    digest = save_model(model, tmp_path)
+    loaded = load_model(tmp_path, digest).model
+    assert topics.assign(loaded, BATTERY) == topics.assign(model, BATTERY)
