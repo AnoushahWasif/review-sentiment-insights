@@ -6,6 +6,8 @@ stage 1 marks reviews whose main topic is a media type, stage 2 finds complaint 
 rest (physical products and orders), where a product team could act on them.
 """
 
+from dataclasses import dataclass, replace
+
 import numpy as np
 import pandas as pd
 from scipy import sparse
@@ -105,6 +107,48 @@ def examples(weights, texts, topic: int, n: int = 3) -> list[str]:
 # Stage 1 topics whose first word is one of these are media types (books, films, music, games).
 MEDIA_WORDS = {"book", "movie", "film", "cd", "album", "music", "game"}
 STAGE1_K, STAGE2_K, CHOICES = 8, 15, (6, 8, 10, 12, 15, 20)
+MEDIA_LABEL, NO_TOPIC = "books, films, music or games", "no topic"
+
+
+@dataclass(frozen=True)
+class TopicModel:
+    """Both fitted stages and a name for each stage 2 topic, saved for the CLI."""
+
+    vec1: TfidfVectorizer
+    nmf1: NMF
+    media: tuple[int, ...]
+    vec2: TfidfVectorizer
+    nmf2: NMF
+    labels: tuple[str, ...]
+
+
+def named(model: TopicModel, labels: pd.DataFrame) -> TopicModel:
+    """Attach the hand-written topic names, refusing them if a topic's top words have changed
+    since they were written (a refit on new data reorders or reshapes the topics)."""
+    words = top_words(model.nmf2, model.vec2.get_feature_names_out(), 3)
+    if sorted(labels["topic"]) != list(range(len(words))):
+        raise ValueError(f"need one label for each of the {len(words)} topics")
+    for row in labels.itertuples():
+        if row.check_words.split("|") != words[row.topic]:
+            raise ValueError(f"topic {row.topic} is now {words[row.topic]}; relabel it")
+    return replace(model, labels=tuple(labels.sort_values("topic")["label"]))
+
+
+def assign(model: TopicModel, texts) -> list[str]:
+    """Each review's main complaint topic by name, or the media or no-topic marker."""
+    if len(texts) == 0:
+        return []
+    stage1 = dominant(model.nmf1.transform(model.vec1.transform(texts)))
+    stage2 = dominant(model.nmf2.transform(model.vec2.transform(texts)))
+    out = []
+    for first, second in zip(stage1, stage2, strict=True):
+        if first in model.media:
+            out.append(MEDIA_LABEL)
+        elif first == -1 or second == -1:
+            out.append(NO_TOPIC)
+        else:
+            out.append(model.labels[second])
+    return out
 
 
 def run(neg_train: list[str], neg_val: list[str]) -> dict:
@@ -144,16 +188,20 @@ def run(neg_train: list[str], neg_val: list[str]) -> dict:
             "reviews": {"train": len(goods_train), "validation": len(goods_val)},
         },
         "_fitted": (nmf2, w2, goods_train),
+        "_model": TopicModel(
+            vec1, nmf1, tuple(media), vec2, nmf2, tuple(f"topic {i}" for i in range(STAGE2_K))
+        ),
     }
 
 
-if __name__ == "__main__":
+def main() -> dict:
     import json
     from pathlib import Path
 
     from reviews.compare import load
     from reviews.data import data_dir
     from reviews.evaluate import run_metadata
+    from reviews.model_store import save_model
 
     train_x, train_y = load("train")
     val_x, val_y = load("validation")
@@ -162,6 +210,18 @@ if __name__ == "__main__":
         [t for t, y in zip(val_x, val_y, strict=True) if y == 0],
     )
     out.pop("_fitted")
+    model = named(out.pop("_model"), pd.read_csv("reports/topic_labels.csv"))
+    # Model first, so the report never names a hash that wasn't saved.
+    out["model_sha256"] = save_model(model, Path("models/topics"), {"stage2_k": STAGE2_K})
     out["run"] = run_metadata(data_dir() / "processed" / "report.json")
     Path("reports/topics.json").write_text(json.dumps(out, indent=2))
     print(json.dumps({k: v for k, v in out["stage2"].items() if k != "top_words"}, indent=2))
+    return out
+
+
+if __name__ == "__main__":
+    # Import rather than call main() here: under `python -m` this file runs as __main__, and the
+    # saved TopicModel would then be pickled as __main__.TopicModel, which the CLI can't load.
+    from reviews.topics import main as topics_main
+
+    topics_main()
