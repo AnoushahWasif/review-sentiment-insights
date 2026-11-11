@@ -166,3 +166,24 @@ def test_help_exits_cleanly(capsys):
         cli.main(["--help"])
     assert exc.value.code == 0
     assert "score" in capsys.readouterr().out
+
+
+def test_a_cell_over_the_csv_field_limit_is_named(setup, capsys):
+    src = write(setup / "in.csv", "text\n" + "a" * 200_000 + "\n")
+    assert run("score", "--in", src, "--out", setup / "out.csv") == 1
+    assert "a cell is longer than" in capsys.readouterr().err
+
+
+def test_a_model_that_cannot_be_unpickled_is_an_error_not_a_traceback(setup, capsys):
+    import hashlib
+
+    # A pickle naming a function that doesn't exist, as if the code had moved since saving.
+    data = b"cbuiltins\nno_such_function\n."
+    (setup / "model" / MODEL_FILE).write_bytes(data)
+    manifest = setup / "model" / "model.json"
+    info = json.loads(manifest.read_text())
+    info["sha256"] = hashlib.sha256(data).hexdigest()
+    manifest.write_text(json.dumps(info))
+    src = write(setup / "in.csv", "text\ngreat\n")
+    assert run("score", "--in", src, "--out", setup / "out.csv") == 1
+    assert "can't be loaded" in capsys.readouterr().err
