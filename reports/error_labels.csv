@@ -1,0 +1,51 @@
+row,true,prob_positive,cause,note
+69,0,0.90,language,Spanish; praises the author's earlier books before the disappointment
+610,0,0.54,elsewhere,praises another adaptation and the actors before panning this one
+780,1,0.18,wording,"poetic; ""not without shape"" double negation"
+998,1,0.46,mixed,"""very good"" plus ""if you just want heat, try something else"""
+2044,1,0.04,mixed,"""very funny"" but most of the text is about it getting tiring"
+2107,0,0.93,mixed,"powerful and easy to use, but too buggy to rely on"
+2287,1,0.41,mixed,"lukewarm: ""just fine"", ""not MUCH better"""
+3011,1,0.33,mixed,"""good, but not organic""; most of the text is the complaint"
+3918,0,0.70,elsewhere,the praise is for a song that is missing from the album
+4012,1,0.19,no opinion,news about the artist's record label; no view of the album
+4616,0,0.75,elsewhere,praises UK DJs to put down these ones
+5023,0,0.94,mixed,"lukewarm: ""it's ok"", ""hit & miss"""
+5102,0,0.70,label,"text says ""you'll enjoy"" it; labelled negative"
+5386,1,0.48,wording,"positive, but full of the problem's words: sleep, insomniacs"
+5513,0,0.83,elsewhere,praises the film and composer; blames the dialogue tracks
+6350,1,0.43,elsewhere,describes two rival products that had to be returned
+6423,1,0.33,wording,"""not bad"", ""wasn't that disappointed"""
+8410,0,0.84,mixed,"descriptive and mild; the complaint is only implied"
+8586,1,0.04,mixed,"""met all of my expectations EXCEPT one"", then a long complaint"
+8886,0,0.66,wording,"criticises the lead character by describing him, few sentiment words"
+8986,0,0.59,sarcasm,sarcastic political rant
+9273,0,0.72,sarcasm,"""Ignorance is bliss!"", sarcastic"
+9627,1,0.07,wording,"praises condition through negations: ""no creases"", ""not listed as new"""
+9851,1,0.25,wording,"recommends it; text is about cancer, epidemic"
+10026,0,0.74,elsewhere,"likes the item, complains about shipping charges"
+10716,0,0.97,no opinion,tip about credit card warranties
+10976,1,0.16,wording,broken English about a subtitle problem
+11210,0,0.79,sarcasm,"""how shocking!"", ""brilliant ideas"" said sarcastically"
+11707,0,0.97,label,"text is all positive (""interesting"", ""intrigued""); labelled negative"
+11817,0,0.69,mixed,opens with praise for the easy reading before the objection
+11939,0,0.94,elsewhere,"loves the old edition, the new one is worse"
+12989,0,0.76,mixed,"""good product for the money! But beware"""
+13756,1,0.09,mixed,"compatibility complaint, then ""no problems"" for two weeks"
+13969,1,0.00,elsewhere,"battery is fine, the phone it goes in ""sucks"""
+14861,0,0.59,no opinion,"about trying to order a different video, not this CD"
+15451,0,0.88,elsewhere,long praise of the author's previous three novels
+15603,0,0.54,wording,"""the only good song is..."": negative through ""only"""
+15826,1,0.43,wording,"recommends a film about tyrants, abuse, evil"
+15856,1,0.47,elsewhere,"great phone, blames the price here"
+15861,0,0.84,mixed,"first CD bad, second good; labelled negative"
+16060,1,0.40,wording,"strongly positive, but tells a story of being skeptical first"
+16842,0,0.71,elsewhere,"""not as good as"" another book"
+17028,0,0.86,mixed,"good price, but reflections and ghosting; ""mixed"""
+17097,0,0.60,elsewhere,"praise for the band's past (""once-great"") against this album"
+17321,1,0.10,mixed,"""really good"" workout, then a list of what didn't suit"
+17800,0,0.94,mixed,"""loved this book"" at first, disappointed later"
+18146,0,0.56,elsewhere,"perfume is great, but the wrong product arrived"
+19519,0,0.69,elsewhere,"loves the classic range, these pans are worse"
+19689,1,0.49,mixed,"great reception, hard to assemble"
+19736,1,0.08,elsewhere,"""don't waste your money"" on a rival style"
