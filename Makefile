@@ -1,4 +1,4 @@
-.PHONY: install lint format test data
+.PHONY: install lint format test data compare tune
 
 install:
 	uv sync
@@ -16,3 +16,9 @@ test:
 
 data:
 	uv run python -m reviews.data
+
+compare:
+	uv run python -m reviews.compare
+
+tune:
+	uv run python -m reviews.tune
