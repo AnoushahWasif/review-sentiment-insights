@@ -1,4 +1,4 @@
-.PHONY: install lint format test data compare tune
+.PHONY: install lint format test data compare tune ngrams
 
 install:
 	uv sync
@@ -22,3 +22,6 @@ compare:
 
 tune:
 	uv run python -m reviews.tune
+
+ngrams:
+	uv run python -m reviews.ngrams
